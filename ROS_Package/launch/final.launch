@@ -1,0 +1,64 @@
+<launch>
+
+  <!-- Gazebo parameters -->
+  <arg name="world" default="empty"/>
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+
+  <!-- Launch World 1 -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find sih)/worlds/small_house.world"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+
+  <!-- Spawn Robot model -->
+  <!-- <arg name="x" value="14.21368796532322"/>
+  <arg name="y" value="-0.2632620577324101"/>
+  <arg name="z" value="4.0"/>
+  <arg name="roll" value="0.0"/>
+  <arg name="pitch" value="0.0"/>
+  <arg name="yaw" value="3.14"/>
+  <param name="robot_description1" command="cat '$(find pithu)/models/urdf/holonomic1/holonomic_new.urdf'"/> -->
+  <arg name="x" value="-1.51368796532322"/>
+  <arg name="y" value="0.382620577324101"/>
+  <arg name="z" value="0.0"/>
+  <arg name="roll" value="0.0"/>
+  <arg name="pitch" value="0.0"/>
+  <arg name="yaw" value="3.14"/>
+  <param name="robot_description1" command="cat '$(find pithu)/models/urdf/holonomic1/holonomic_new.urdf'"/>
+
+  <node name="holonomic_new" pkg="gazebo_ros" type="spawn_model" output="screen" 
+    args="-urdf -param robot_description1 -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -model holonomic_new" />
+
+ <!-- Spawn Robot model -->
+  <!-- <arg name="a" value="11.25060967429038"/>
+  <arg name="b" value="-1.2632620577324101"/>
+  <arg name="c" value="0.0"/>
+  <arg name="rol" value="0.0"/>
+  <arg name="pitc" value="0.0"/>
+  <arg name="ya" value="3.14"/>
+  <param name="robot_description2" command="cat '$(find holup)/models/urdf/holonomic2/holonomic_new2.urdf'"/>
+
+  <node name="holonomic_new2" pkg="gazebo_ros" type="spawn_model" output="screen" 
+    args="-urdf -param robot_description2 -x $(arg a) -y $(arg b) -z $(arg c) -R $(arg rol) -P $(arg pitc) -Y $(arg ya) -model holonomic_new2" />  -->
+  
+  <!-- Joint state publisher -->
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
+
+  <!-- Robot state publisher -->
+  <!-- <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" /> -->
+
+  <!-- Rviz -->
+  <!-- <node name="rviz" pkg="rviz" type="rviz" /> -->
+<node pkg="pithu" name="reach.py" type="reach.py" output="screen"> 
+  </node>
+  
+
+</launch>
